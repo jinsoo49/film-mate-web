@@ -12,12 +12,14 @@ import Header from "Components/Header";
 
 export default () => (
   <Router>
-    <Header></Header>
-    <Switch>
-      <Route path="/" exact component={Home} />
-      <Route path="/tv" component={TV} />
-      <Route path="/search" component={Search} />
-      <Redirect from="*" to="/"></Redirect>
-    </Switch>
+    <>
+      <Header />
+      <Switch>
+        <Route path="/" exact component={Home} />
+        <Route path="/tv" component={TV} />
+        <Route path="/search" component={Search} />
+        <Redirect from="*" to="/"></Redirect>
+      </Switch>
+    </>
   </Router>
 );
