@@ -12,3 +12,5 @@ Learing React and ES6 by building a Movie Discovery App
 ---
 
 - react-router-dom
+- axios
+- use container - presenter pattern
