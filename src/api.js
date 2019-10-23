@@ -3,7 +3,7 @@ import axios from "axios";
 const api = axios.create({
   baseURL: "https://api.themoviedb.org/3/",
   params: {
-    api_key: "c686a47083faa4abcfd1bc65e2133aea",
+    api_key: "10923b261ba94d897ac6b81148314a3f",
     language: "en-US"
   }
 });
@@ -15,8 +15,7 @@ export const moviesApi = {
   movieDetail: id =>
     api.get(`movie/${id}`, {
       params: {
-        append_to_response: "videos",
-        api_key: "c686a47083faa4abcfd1bc65e2133aea"
+        append_to_response: "videos"
       }
     }),
   search: term =>
@@ -34,8 +33,7 @@ export const tvApi = {
   showDetail: id =>
     api.get(`tv/${id}`, {
       params: {
-        append_to_response: "videos",
-        api_key: "c686a47083faa4abcfd1bc65e2133aea"
+        append_to_response: "videos"
       }
     }),
   search: term =>

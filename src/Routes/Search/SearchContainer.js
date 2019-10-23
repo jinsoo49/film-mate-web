@@ -1,26 +1,31 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import SearchPresenter from "./SearchPresenter";
 import { moviesApi, tvApi } from "../../api";
 
-export default class extends React.Component {
-  state = {
-    movieResults: null,
-    tvResults: null,
-    searchTerm: "",
-    loading: false,
-    error: null
-  };
+export default function() {
+  const [movieResults, setMovieResults] = useState(null);
+  const [tvResults, setTvResults] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
-  handleSubmit = () => {
-    const { searchTerm } = this.state;
+  const handleSubmit = event => {
+    event.preventDefault(); // enter으로 submit 되는것을 방지
     if (searchTerm !== "") {
-      this.searchByTerm(searchTerm);
+      SearchByTerm(searchTerm);
     }
   };
 
-  searchByTerm = async () => {
-    this.setState({ loading: true });
-    const { searchTerm } = this.state;
+  const updateTerm = event => {
+    const {
+      target: { value }
+    } = event;
+    setSearchTerm(value);
+  };
+
+  const SearchByTerm = async function SearchData(term) {
+    setLoading(true);
+    // const { searchTerm } = search;
     try {
       const {
         data: { results: movieResults }
@@ -28,28 +33,29 @@ export default class extends React.Component {
       const {
         data: { results: tvResults }
       } = await tvApi.search(searchTerm);
-      this.setState({
-        movieResults,
-        tvResults
-      });
+      setMovieResults(movieResults);
+      setTvResults(tvResults);
     } catch {
-      this.setState({ error: "can't find results" });
+      setError("can't find results");
     } finally {
-      this.setState({ loading: false });
+      setLoading(false);
     }
   };
 
-  render() {
-    const { movieResults, tvResults, searchTerm, loading, error } = this.state;
-    return (
-      <SearchPresenter
-        movieResults={movieResults}
-        tvResults={tvResults}
-        loading={loading}
-        error={error}
-        searchTerm={searchTerm}
-        handleSubmit={this.handleSubmit}
-      />
-    );
-  }
+  useEffect(() => {
+    SearchByTerm();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  return (
+    <SearchPresenter
+      movieResults={movieResults}
+      tvResults={tvResults}
+      loading={loading}
+      error={error}
+      searchTerm={searchTerm}
+      handleSubmit={handleSubmit}
+      updateTerm={updateTerm}
+    />
+  );
 }
