@@ -2,6 +2,8 @@
 
 Learing React and ES6 by building a Movie Discovery App
 
+Use React Hooks to Convert a Class Component to a Function Component
+
 ## Screens
 
 - Home
@@ -13,4 +15,7 @@ Learing React and ES6 by building a Movie Discovery App
 
 - react-router-dom
 - axios
+- styled components
 - use container - presenter pattern
+- use THEMOVIEAPI
+  
